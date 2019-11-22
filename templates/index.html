@@ -1,0 +1,15 @@
+{% extends "base_layout.html" %}
+
+{% block title %}Project 1{% endblock %}
+
+{% block content %}
+    <h1>INDEX</h1>
+    {% if current_user.is_authenticated %}
+        {% if error %}
+        <div class="col-md-5 ml-3 alert alert-danger alert-dismissable fade show" role="alert">
+            {{ error | safe }}
+        </div>
+        {% endif %}
+        {% include "books_table.html" %}
+    {% endif %}
+{% endblock %}

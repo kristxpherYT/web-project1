@@ -1,0 +1,151 @@
+{% extends "base_layout.html" %}
+{% block title %}{{ book.title }} | Details{% endblock %}
+
+{% block content %}
+    <div class="col-md-12 pt-5">
+        <div class="details-container col-md-8">
+            <h2 id="details-title">Book Details</h2>
+            <div class="details-item">
+                <label for="isbn">ISBN Number:</label>
+                <span>{{ book.isbn }}</span>
+            </div>
+            <div class="details-item">
+                <label for="title">Title of the Book:</label>
+                <span>{{ book.title }}</span>
+            </div>
+            <div class="details-item">
+                <label for="author">Author:</label>
+                <span>{{ book.author }}</span>
+            </div>
+            <div class="details-item">
+                <label for="publication_year">Publication Year:</label>
+                <span>{{ book.publication_year }}</span>
+            </div>
+            <div class="details-item">
+                <label for="average">Average Score on Goodreads:</label>
+                {% if goodreads_response %}
+                <div class="rating-score-container {% if goodreads_response['average_rating'] < 3 %} bg-danger {% elif goodreads_response['average_rating'] <= 4 %} bg-warning {% else %} bg-success {% endif %}">
+                    <span>{{ goodreads_response['average_rating'] }} / 5</span>
+                </div>
+                <span style="margin-left: 5px;">of <b>{{ goodreads_response['ratings_count'] }}</b> ratings</span>
+                {% else %}
+                <span>There is no average score. This book is not found in Goodreads.</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="reviews-container col-md-8">
+            <h2 id="reviews-title">Reviews</h2>
+            {% if reviews %}
+                {% for review in reviews %}
+                <div class="review">
+                    <div class="review-details">
+                        <div class="rating-container">
+                            {% for i in range(review.rating) %}
+                            <span class="star-score"><i class="fas fa-star"></i></span>
+                            {% endfor %}
+                            {% for i in range(review.rating, 5) %}
+                            <span class="star-score"><i class="far fa-star"></i></span>
+                            {% endfor %}
+                            <div class="rating-score-container {% if review.rating < 3 %} bg-danger {% elif review.rating <= 4 %} bg-warning {% else %} bg-success {% endif %}">
+                                <span class="rating">{{ review.rating }} / 5</span>
+                            </div>
+                        </div>
+                        <span class="user-name">{{ review.get_user(review.user_id).name }}</span>
+                    </div>
+                    <div class="review-opinion">{{ review.text }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <span>There is no reviews for this book yet. Be the first!</span>
+            {% endif %}
+        </div>
+
+        <div class="submit-container col-md-8">
+            <h2 id="submit-title">Submit a Review</h2>
+            <form id="review-form" action="{{ url_for('book_details') }}" method="post">
+                <div class="form-group">
+                    <label for="review_text"><b>Write your opinion:</b></label>
+                    <textarea form="review-form" maxlength="500" onkeyup="countChar(this)" class="form-control"
+                        name="review_text" id="review_text" rows="10" required></textarea>
+                    <div id="char-count" class="text-right">0 / 500</div>
+                </div>
+                <div class="form-group text-right">
+                    <label for="submit-rating" class="custom-control-inline"><b>Rate this book:</b></label>
+                    <div id="submit-rating" class="custom-control-inline">
+                        <span id="score-1" class="selectable-star">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span id="score-2" class="selectable-star">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span id="score-3" class="selectable-star">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span id="score-4" class="selectable-star">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span id="score-5" class="selectable-star">
+                            <i class="far fa-star" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="hidden" id="rating" name="rating" value="0">
+                    <input type="hidden" id="book_id" name="book_id" value="">
+                </div>
+                <div class="form-group text-right">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            let score = 0;
+
+            let starColoring = function(scoreId, selected=false) {
+                removeStarColoring();
+                $("#submit-rating").children("span").each(function(index) {
+                    if (index < scoreId) {
+                        index++;
+                        let score = $("#score-" + index).find('i');
+                        score.removeClass('far');
+                        score.addClass('fas');
+                        selected ? score.addClass('selected') : score.addClass('hovered');
+                    }
+                });
+            }
+
+            let removeStarColoring = function() {
+                $(".selectable-star i").removeClass('fas');
+                $(".selectable-star i").addClass('far');
+                $(".selectable-star i").removeClass('hovered');
+                $(".selectable-star i").removeClass('selected');
+            }
+
+            $(".selectable-star i").hover(function() {
+                let scoreId = $(this).parent().attr('id').replace("score-", "");
+                starColoring(scoreId);
+            }, function() {
+                starColoring(score);
+            });
+
+            $(".selectable-star i").on("click", function() {
+                let scoreId = $(this).parent().attr('id').replace("score-", "");
+                score == scoreId ? score = 0 : score = scoreId;
+                starColoring(score, true);
+            });
+
+            $("#review-form").submit(function() {
+                $("#rating").val(score);
+                $("#book_id").val({{ book.id }});
+            });
+        });
+
+        let countChar = function(val) {
+            let len = val.value.length;
+            $('#char-count').text(len + " / 500");
+        };
+    </script>
+{% endblock %}

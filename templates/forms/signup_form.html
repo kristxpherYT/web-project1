@@ -1,0 +1,45 @@
+{% extends "base_layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    {% if error %}
+    <div class="col-md-5 ml-3 alert alert-danger alert-dismissable fade show" role="alert">
+        {{ error | safe }}
+    </div>
+    {% endif %}
+<div class="form-container col-md-12">
+    <form class="custom-form col-md-6 bg-black" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group row">
+            {{ form.name.label(class_="col-sm-2 col-form-label text-light") }}
+            <div class="col-sm-10">
+                {{ form.name(class_="form-control", size=64) }}
+                {% for error in form.name.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form.email.label(class_="col-sm-2 col-form-label text-light") }}
+            <div class="col-sm-10">
+                {{ form.email(class_="form-control") }}
+                {% for error in form.email.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form.password.label(class_="col-sm-2 col-form-label text-light") }}
+            <div class="col-sm-10">
+                {{ form.password(class_="form-control") }}
+                {% for error in form.password.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group text-right">
+            {{ form.submit(class_="btn btn-outline-secondary") }}
+        </div>
+    </form>
+</div>
+
+{% endblock %}

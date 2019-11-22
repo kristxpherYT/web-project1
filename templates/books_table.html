@@ -1,0 +1,50 @@
+{% block content %}
+    <div class="table-container col-md-12">
+        <div class="col-md-10">
+            <table id="myTable" class="table table-hover bg-black text-light"></table>
+        </div>
+    </div>
+{% endblock %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      let data = {{ books | safe }};
+
+        $(function() {
+            $('#myTable').bootstrapTable({ 
+                pagination: true,
+                search: true,
+                data: data,
+                columns: [{
+                    field: 'isbn',
+                    title: 'ISBN Number'
+                }, {
+                    field: 'title',
+                    title: 'Title of the Book',
+                    sortable: true
+                }, {
+                    field: 'author',
+                    title: 'Author',
+                    sortable: true
+                }, {
+                    field: 'publication_year',
+                    title: 'Publication Year',
+                    sortable: true
+                }, {
+                    field: 'actions',
+                    title: 'Actions',
+                    search: false,
+                    formatter: function(value, row) {
+                        return '<span href="" id="' + row.id + '" class="btn-table"><a class="fas fa-book"></a></span>';
+                    }
+                }],
+            });
+        });
+
+        $(document).on('click', '.btn-table a', function(e) {
+            let book_id = $(this).parent().attr('id');
+            let url = "{{ url_for('book_details', id='__ID__') }}".replace("__ID__", book_id);
+            $(this).attr('href', url)
+        });
+    });
+</script>

@@ -1,0 +1,298 @@
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #111 !important;
+    color: #ddd !important;
+}
+
+table th,
+table td {
+    text-align: center;
+    border-color: #444 !important;
+}
+
+table > tbody tr:hover {
+    background-color: #333 !important;
+    color: #ddd !important;
+}
+
+.page-link {
+    background-color: black !important;
+    color: #ddd !important;
+    border-color: #444 !important;
+}
+
+.page-link:hover {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.pagination .active > a {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.page-next {
+    border-color: #444 !important;
+}
+
+textarea {
+    resize: none !important;
+}
+
+h1, h2, h3, h4 {
+    margin: 1em 0 .5em;
+    line-height: 1.25
+}
+
+h1 {
+    font-size: 2em
+}
+
+h2 {
+    font-size: 1.5em
+}
+
+h3 {
+    font-size: 1.2em
+}
+
+ul, ol {
+    margin: 1em 0;
+    padding-left: 40px
+}
+
+p, figure {
+    margin: 1em 0
+}
+
+a img {
+    border: none
+}
+
+sup, sub {
+    line-height: 0
+}
+
+.user-info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.user-info li {
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+
+.btn-table {
+    cursor: pointer;
+}
+
+.btn-table a {
+    color: #ddd;
+}
+
+.form-container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-form {
+    border: 1px solid #222;
+    box-shadow: 2px 3px 8px black;
+    border-radius: 8px;
+    padding: 60px 50px !important;
+}
+
+label {
+    color: #ddd !important;
+}
+
+input:not(.btn),
+input:not(.btn):focus,
+textarea {
+    background-color: black !important;
+    border: 1px solid #222 !important;
+    color: #ddd !important;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-background-color: black !important;
+    -webkit-border: 1px solid #222 !important;
+    -webkit-color: #ddd !important;
+    -webkit-box-shadow: 0 0 0px 1000px black inset !important;
+    -webkit-text-fill-color: #ddd !important;
+    box-shadow: 0 0 0px 1000px black inset !important;
+    color: #ddd !important;
+    border: 1px solid #222 !important;
+    background-color: black !important;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 8px 0.15rem rgba(185, 218, 248, 0.25) !important;
+}
+
+.table-container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-score {
+    color: goldenrod;
+    display: flex;
+    align-items: center;
+}
+
+.star-score,
+.selectable-star {
+    padding: 0 3px;
+}
+
+.selectable-star i {
+    cursor: pointer;
+}
+
+.submit-container {
+    display: flex;
+    flex-flow: column;
+    padding: 30px 0;
+}
+
+.reviews-container {
+    padding: 30px 0 20px 0;
+}
+
+#submit-rating {
+    margin: 0 !important;
+}
+
+#reviews-title {
+    border-bottom: 1px solid #444;
+}
+
+#submit-title {
+    border-bottom: 1px solid #444;
+}
+
+#review-form {
+    padding: 15px 0;
+    margin-top: 20px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#review-form .form-group {
+    width: 70%;
+}
+
+.selectable-star i:hover,
+.selectable-star i.hovered,
+.selectable-star i.selected {
+    color: goldenrod;
+}
+
+.review {
+    border: 1px solid #444;
+    box-shadow: 2px 2px 8px 0 #333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-opinion {
+    padding-top: 20px;
+}
+
+#myNavbar {
+    background-color: black !important;
+    border-bottom: 1px solid #444;
+    box-shadow: 0 5px 8px black;
+    margin-bottom: 10px;
+}
+
+#myNavbar a {
+    color: #ddd !important;
+}
+
+#myNavbar .navbar-text {
+    color: #ddd;
+    font-weight: bold;
+    padding: .5rem 5px;
+}
+
+#myNavbar .nav-item:hover a {
+    color: #fff !important;
+}
+
+.details-container label {
+    font-weight: bold;
+    margin: 0;
+    font-size: 18px;
+}
+
+.details-item {
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+#details-title {
+    border-bottom: 1px solid #444;
+}
+
+.rating-container {
+    display: flex;
+}
+
+.rating-score-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.rating-container > .rating-score-container {
+    width: 35px;
+}
+
+.details-item > .rating-score-container {
+    width: 50px;
+    padding: 5px 0;
+}
+
+.details-item > span {
+    margin-left: 15px;
+}
+
+.bg-black {
+    background-color: black !important;
+}
+
+#char-count {
+    font-size: 12px;
+    color: #555;
+}
