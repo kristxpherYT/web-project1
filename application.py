@@ -49,15 +49,18 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
+    error = None
     if form.validate_on_submit():
         user = User.get_by_email(form.email.data)
         if user is not None and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
-            if not next_page or url_for(next_page).netloc != '':
+            if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('index')
             return redirect(next_page)
-    return render_template('forms/login_form.html', form=form)
+        else:
+            error = "The email or password are invalid."
+    return render_template('forms/login_form.html', form=form, error=error)
 
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
@@ -124,25 +127,29 @@ def book_details():
         return redirect(url_for('index'))
 
 @app.route('/api/<string:isbn>')
+@login_required
 def api_access(isbn):
     book = Book.get_by_isbn(isbn)
     
-    review_count = len(book.reviews)
+    if book:
+        review_count = len(book.reviews)
     
-    sum = 0
-    for review in book.reviews:
-        sum += review.rating
-    
-    average_score = sum / review_count
+        sum = 0
+        for review in book.reviews:
+            sum += review.rating
+        
+        average_score = sum / review_count
 
-    response = {
-        "title": book.title,
-        "author": book.author,
-        "year": book.publication_year,
-        "isbn": isbn,
-        "review_count": review_count,
-        "average_score": average_score
-    }
+        response = {
+            "title": book.title,
+            "author": book.author,
+            "year": book.publication_year,
+            "isbn": isbn,
+            "review_count": review_count,
+            "average_score": average_score
+        }
+    else:
+        response = "Error 404. There is no books that matches that ISBN number."
 
     return response
 

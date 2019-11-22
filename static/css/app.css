@@ -296,3 +296,11 @@ input:-webkit-autofill:active  {
     font-size: 12px;
     color: #555;
 }
+
+.alert {
+    position: fixed !important;
+    top: 60px;
+    right: 20px;
+    z-index: 500 !important;
+    opacity: 0.8 !important;
+}

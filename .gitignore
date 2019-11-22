@@ -1,0 +1,4 @@
+__pycache__/
+.vscode/
+project1/
+flask_session/

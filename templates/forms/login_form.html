@@ -1,6 +1,11 @@
 {% extends "base_layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+    {% if error %}
+    <div class="col-md-5 ml-3 alert alert-danger alert-dismissable fade show" role="alert">
+        {{ error | safe }}
+    </div>
+    {% endif %}
     <div class="form-container col-md-12">
         <form class="custom-form col-md-6 bg-black" method="post" novalidate>
             {{ form.hidden_tag() }}
