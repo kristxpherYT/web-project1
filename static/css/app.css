@@ -304,3 +304,12 @@ input:-webkit-autofill:active  {
     z-index: 500 !important;
     opacity: 0.8 !important;
 }
+
+.content {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 67px);
+    width: 100%;
+}

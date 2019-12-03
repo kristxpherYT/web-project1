@@ -28,7 +28,7 @@
                 {% if current_user.is_anonymous %}
                 <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
                 <li class="nav-item"><span class="navbar-text"> | </span></li>
-                <li class="nav-item"><a href="{{ url_for('sign_up') }}" class="nav-link">Registrar</a></li>
+                <li class="nav-item"><a href="{{ url_for('sign_up') }}" class="nav-link">Register</a></li>
                 {% else %}
                 <li class="nav-item"><span class="navbar-text"> | </span></li>
                 <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
